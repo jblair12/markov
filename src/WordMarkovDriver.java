@@ -10,10 +10,11 @@ public class WordMarkovDriver {
 		String text = TextSource.textFromFile(f);
 		
 		for(int k=1; k <= 5; k++) {
-			BruteWordMarkov markov = new BruteWordMarkov(k);
+			MarkovInterface<WordGram> markov = new BruteWordMarkov(k);
+			//MarkovInterface<WordGram> markov = new EfficientWordMarkov(k);
 			markov.setTraining(text);
 			String random = markov.getRandomText(200);
-			System.out.printf("%d markov model\n", k);
+			System.out.printf("%d markov model with %d words\n", k,random.split("\\s").length);
 			printNicely(random,60);
 		}
 	}

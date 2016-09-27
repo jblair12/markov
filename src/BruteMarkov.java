@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Random;
 
-public class BruteMarkov {
+public class BruteMarkov implements MarkovInterface<String> {
 	private String myText;
 	private Random myRandom;
 	private int myOrder;
@@ -10,7 +10,7 @@ public class BruteMarkov {
 	private static int RANDOM_SEED = 1234;
 	
 	public BruteMarkov(int order) {
-		myRandom = new Random();
+		myRandom = new Random(RANDOM_SEED);
 		myOrder = order;
 	}
 	
@@ -28,7 +28,9 @@ public class BruteMarkov {
 	public String getRandomText(int length) {
 		StringBuilder sb = new StringBuilder();
 		int index = myRandom.nextInt(myText.length() - myOrder);
+
 		String current = myText.substring(index, index + myOrder);
+		//System.out.printf("first random %d for '%s'\n",index,current);
 		sb.append(current);
 		for(int k=0; k < length-myOrder; k++){
 			ArrayList<String> follows = getFollows(current);
@@ -36,8 +38,10 @@ public class BruteMarkov {
 				break;
 			}
 			index = myRandom.nextInt(follows.size());
+			
 			String nextItem = follows.get(index);
 			if (nextItem.equals(PSEUDO_EOS)) {
+				//System.out.println("PSEUDO");
 				break;
 			}
 			sb.append(nextItem);
@@ -57,7 +61,7 @@ public class BruteMarkov {
 				//System.out.println("didn't find "+key);
 				break;
 			}
-			if (start + key.length() >= myText.length()-1){
+			if (start + key.length() >= myText.length()){
 				//System.out.println("found end with "+key);
 				follows.add(PSEUDO_EOS);
 				break;
@@ -65,8 +69,13 @@ public class BruteMarkov {
 			// next line is string equivalent of myText.charAt(start+key.length())
 			String next = myText.substring(start+key.length(), start+key.length()+1);
 			follows.add(next);
-			pos = start+key.length();  // search continues after this occurrence
+			pos = start+1;  // search continues after this occurrence
 		}
 		return follows;
+	}
+
+	@Override
+	public int getOrder() {
+		return myOrder;
 	}
 }

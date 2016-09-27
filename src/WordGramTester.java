@@ -4,7 +4,7 @@ import java.util.*;
 import static org.junit.Assert.*;
 
 public class WordGramTester {
-	;
+
 	private WordGram[] myGrams;
 
 	@Before
@@ -29,16 +29,16 @@ public class WordGramTester {
 	@Test
 	public void testEquals(){
 
-		assertEquals("fail on 0,3",myGrams[0].equals(myGrams[3]),true);
-		assertEquals("fail on 0,6",myGrams[0].equals(myGrams[6]),true);
-		assertEquals("fail on 1,4",myGrams[1].equals(myGrams[4]),true);
-		assertEquals("fail on 2,5",myGrams[2].equals(myGrams[5]),true);
-		assertEquals("fail on 2,8",myGrams[2].equals(myGrams[8]),true);
-		assertEquals("fail on 0,2",myGrams[0].equals(myGrams[2]),false);
-		assertEquals("fail on 0,4",myGrams[0].equals(myGrams[2]),false);
-		assertEquals("fail on 2,3",myGrams[2].equals(myGrams[3]),false);
-		assertEquals("fail no 2,6",myGrams[2].equals(myGrams[6]),false);
-		assertEquals("fail no 7,8",myGrams[7].equals(myGrams[8]),false);
+		assertEquals("eq fail on 0,3",myGrams[0].equals(myGrams[3]),true);
+		assertEquals("eq fail on 0,6",myGrams[0].equals(myGrams[6]),true);
+		assertEquals("eq fail on 1,4",myGrams[1].equals(myGrams[4]),true);
+		assertEquals("eq fail on 2,5",myGrams[2].equals(myGrams[5]),true);
+		assertEquals("eq fail on 2,8",myGrams[2].equals(myGrams[8]),true);
+		assertEquals("eq fail on 0,2",myGrams[0].equals(myGrams[2]),false);
+		assertEquals("eq fail on 0,4",myGrams[0].equals(myGrams[2]),false);
+		assertEquals("eq fail on 2,3",myGrams[2].equals(myGrams[3]),false);
+		assertEquals("eq fail no 2,6",myGrams[2].equals(myGrams[6]),false);
+		assertEquals("eq fail no 7,8",myGrams[7].equals(myGrams[8]),false);
 	}
 
 	@Test
@@ -49,6 +49,21 @@ public class WordGramTester {
 		}
 
 		assertTrue("hash code test", set.size() > 9);
+	}
+	
+	@Test
+	public void testCompare(){
+		String[] words = {"apple", "zebra", "mongoose", "hat"};
+		WordGram a = new WordGram(words,0,4);
+		WordGram b = new WordGram(words,0,4);
+		WordGram a2 = new WordGram(words,0,3);
+		WordGram b2 = new WordGram(words,2,0);
+		
+		assertEquals("comp fail self",a.compareTo(a) == 0, true);
+		assertEquals("comp fail copy",a.compareTo(b) == 0, true);
+		assertEquals("fail sub", a2.compareTo(a) < 0, true);
+		assertEquals("fail super",a.compareTo(a2) > 0, true);
+		assertEquals("fail empty",b2.compareTo(a2) < 0, true);
 	}
 
 }

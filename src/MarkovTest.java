@@ -7,19 +7,19 @@ import org.junit.Test;
 public class MarkovTest {
 	// TODO: change to EfficientMarkov
 
-	private BruteMarkov getModel(int order) {
+	private MarkovInterface<String> getModel(int order) {
 		// TODO: change to EfficientMarkov
 		return new BruteMarkov(order);
 	}
 	
 
 	/**
-	 * This test checks if MapMarkovModel makes a correct " Ngram using a simple
+	 * This test checks if MarkovModel makes a correct " Ngram using a simple
 	 * source
 	 */
 	@Test(timeout = 10000)
 	public void testMapMakeNgram() {
-		BruteMarkov markov = getModel(2);
+		MarkovInterface<String> markov = getModel(2);
 		markov.setTraining("aabbaabbaabbaabbaabbaabbaabbaabbaabbaabba"
 				+ "abbaabbaabbaabbaabbaabbaabbaabbaabbaabbaabbaabbaabbaabb");
 		String output = "";
@@ -59,7 +59,7 @@ public class MarkovTest {
 	@Test(timeout = 10000)
 	public void testMapAllRepeats() {
 		String testString = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-		BruteMarkov markov = getModel(1);
+		MarkovInterface<String> markov = getModel(1);
 		markov.setTraining(testString);
 		String output = "";
 		while (output.length() < 8) {
@@ -77,7 +77,7 @@ public class MarkovTest {
 	@Test(timeout = 10000)
 	public void testMapNoRepeats() {
 		String testString = "qwertyuiopasdfghjklzxcvbnm";
-		BruteMarkov markov = getModel(1);
+		MarkovInterface<String> markov = getModel(1);
 		markov.setTraining(testString);
 		String output = markov.getRandomText(100);
 		assertTrue(
