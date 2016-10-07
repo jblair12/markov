@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Interface for Compsci 201 Markov Assignment. Note that the order
@@ -13,6 +14,7 @@ public interface MarkovInterface<Type> {
 	/**
 	 * Set the training text for subsequent random text generation.
 	 * @param text is the training text
+	 * @return 
 	 */
 	public void setTraining(String text);
 	

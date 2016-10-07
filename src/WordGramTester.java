@@ -65,5 +65,37 @@ public class WordGramTester {
 		assertEquals("fail super",a.compareTo(a2) > 0, true);
 		assertEquals("fail empty",b2.compareTo(a2) < 0, true);
 	}
-
+	@Test
+	public void testShiftAdd(){
+		String[] words = {"apple", "zebra", "mongoose", "hat", "lemon"};
+		WordGram a = new WordGram(words,0,4);
+		WordGram b = new WordGram(words,1,4);
+		WordGram a2 = new WordGram(words,0,3);
+		WordGram a3 = new WordGram(words,1,3);
+		WordGram b2 = new WordGram(words,2,0);
+		//System.out.println(a);
+		//System.out.println(b);
+		//System.out.println(a.shiftAdd("lemon"));
+		assertEquals("shift size 4",(a.shiftAdd("lemon")).equals(b), true);
+		assertEquals("shift size 3",(a2.shiftAdd("hat")).equals(a3), true);
+		assertEquals("if it fails to shift",(a2.shiftAdd("lemon")).equals(a2), false);
+		assertEquals("if it adds on",(a2.shiftAdd("lemon")).equals(a), false);
+		
+	}
+	@Test
+	public void testToString(){
+		String[] words = {"apple", "zebra", "mongoose", "hat", "lemon"};
+		WordGram a = new WordGram(words,0,4);
+		WordGram b = new WordGram(words,0,4);
+		WordGram a2 = new WordGram(words,0,3);
+		WordGram a3 = new WordGram(words,1,3);
+		WordGram b2 = new WordGram(words,1,3);
+		System.out.print(a);
+		System.out.print(a.toString());
+		assertEquals("regualr string size 4",(a.toString()).equals(b.toString()), true);
+		assertEquals("to string after shift",((a2.shiftAdd("hat")).toString()).equals(a3.toString()), true);
+		assertEquals("if it fails to shift",(a2.toString()).equals(a3.toString()), false);
+		assertEquals("regualr string size 3",(a2.toString()).equals(a2.toString()), true);
+		
+	}
 }
